@@ -48,3 +48,34 @@ Test(xml, withnext)
     cr_assert_eq(n->next->properties, NULL);
     cr_assert_eq(n->next->next, NULL);
 }
+
+Test(xml, withchild)
+{
+    char *xml = strdup("<yes><nop/></yes>");
+    node *n = xml_parsenode(&xml);
+
+    cr_assert_str_eq(n->name, "yes");
+    cr_assert_eq(n->next, NULL);
+    cr_assert_eq(n->properties, NULL);
+    cr_assert_eq(n->properties->next, NULL);
+    cr_assert_str_eq(n->child->name, "nop");
+    cr_assert_eq(n->child->child, NULL);
+    cr_assert_eq(n->child->properties, NULL);
+    cr_assert_eq(n->child->next, NULL);
+}
+
+Test(xml, withchildwparams)
+{
+    char *xml = strdup("<yes params=\"Test\"><nop/></yes>");
+    node *n = xml_parsenode(&xml);
+
+    cr_assert_str_eq(n->name, "yes");
+    cr_assert_eq(n->next, NULL);
+    cr_assert_str_eq(n->properties->key, "params");
+    cr_assert_str_eq(n->properties->value, "Test");
+    cr_assert_eq(n->properties->next, NULL);
+    cr_assert_str_eq(n->child->name, "nop");
+    cr_assert_eq(n->child->child, NULL);
+    cr_assert_eq(n->child->properties, NULL);
+    cr_assert_eq(n->child->next, NULL);
+}

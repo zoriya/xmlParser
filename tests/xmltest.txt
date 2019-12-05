@@ -1,1 +1,1 @@
-<yes/>
+<yes params="Test"><nop/></yes>

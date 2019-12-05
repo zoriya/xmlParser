@@ -7,7 +7,8 @@
 
 SRC = src/xmlparser.c \
 	src/parsenode.c \
-	src/list_utility.c
+	src/list_utility.c \
+	src/helper.c
 
 OBJ = $(SRC:%.c=%.o)
 
