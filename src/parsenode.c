@@ -20,6 +20,7 @@ char *xml_getname(char **nodestr, bool *has_parameters)
     *nodestr += 1;
     if (p) {
         *has_parameters = true;
+        *p = '\0';
     } else {
         *has_parameters = false;
         p = my_strchr(*nodestr, '/');
@@ -27,10 +28,11 @@ char *xml_getname(char **nodestr, bool *has_parameters)
             p = my_strchr(*nodestr, '>');
         else
             i++;
-        if (!p)
-            return (NULL);
+        if (p)
+            *p = '\0';
+        else
+            p = *nodestr + my_strlen(*nodestr);
     }
-    *p = '\0';
     name = my_strdup(*nodestr);
     *nodestr = p + i;
     return (name);
@@ -136,6 +138,7 @@ node *xml_parsenode(char **nodestr)
     n->name = xml_getname(nodestr, &has_next_value);
     if (!n->name)
         return (NULL);
+    //IF THE NODE HAS NO PARAMTERS BUT A CHILD, THE SYSTEM TELLS THAT IT HAS NETHER. HERE CHILDS ARE USED ONLY WHEN THE NODE AS PARAMS
     if (has_next_value) {
         n->properties = xml_getproperties(nodestr, &has_next_value);
         if (!n->properties)
