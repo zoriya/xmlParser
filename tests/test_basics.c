@@ -19,3 +19,16 @@ Test(xml, simple)
     cr_assert_eq(n->next, NULL);
     cr_assert_eq(n->properties, NULL);
 }
+
+Test(xml, withparam)
+{
+    char *xml = strdup("<yes params=\"Test\"/>");
+    node *n = xml_parsenode(&xml);
+
+    cr_assert_str_eq(n->name, "yes");
+    cr_assert_eq(n->child, NULL);
+    cr_assert_eq(n->next, NULL);
+    cr_assert_str_eq(n->properties->key, "params");
+    cr_assert_str_eq(n->properties->value, "Test");
+    cr_assert_eq(n->properties->next, NULL);
+}
