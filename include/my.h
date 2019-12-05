@@ -8,6 +8,8 @@
 
 int count_valid_queens_placements(int n);
 
+char *my_strchr(char *str, char c);
+
 int my_compute_power_it(int n, int p);
 
 int my_compute_power_rec(int n, int p);
@@ -74,9 +76,7 @@ char *my_strcat(char *dest, const char *src);
 
 int my_strcmp(const char *s1, const char *s2);
 
-char *my_strchr(char *str, char c);
-
-char *my_strcpy(char *dest, const char *src);
+char *my_strcpy(const char *str);
 
 int my_str_isalpha(const char *str);
 

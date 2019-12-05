@@ -17,7 +17,6 @@ LIBOBJ = lib/my/*.o \
 all: buildlib
 
 buildlib:
-	cp ./my.h ../../include/my.h
 	gcc -c ./*.c
 	ar rc ./libmy.a ./*.o
 	ar rc ../libmy.a ./*.o

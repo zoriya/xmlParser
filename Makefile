@@ -11,11 +11,17 @@ SRC = src/xmlparser.c \
 
 OBJ = $(SRC:%.c=%.o)
 
+TESTS = tests/test_basics.c
+
+TEST_MAIN = tests/test_main.c
+
+COVERAGE = --coverage -lcriterion
+
 INCLUDE = -I ./include
 
 CFLAGS = $(INCLUDE) -Wall -Wextra -Wshadow
 
-LDFLAGS = 
+LDFLAGS = -lmy -L lib/my/
 
 CC = gcc
 
@@ -23,20 +29,37 @@ AR = ar rc
 
 NAME = xmlparser.a
 
+UT = ./ut
+
+FT = ./ft
+
 all: build
 
 build: $(OBJ)
+	$(MAKE) -C lib/my
 	$(AR) $(NAME) $(NAME)
 
+tests_run:
+	$(CC) -o $(UT) $(SRC) $(TESTS) $(COVERAGE) $(CFLAGS) $(LDFLAGS)
+	$(UT)
+
 clean:
+	$(MAKE) -C lib/my clean
 	$(RM) $(OBJ)
+	$(RM) *.gc*
 
 fclean: clean
+	$(MAKE) -C lib/my fclean
 	$(RM) $(NAME)
+	$(RM) $(UT)
+	$(RM) $(FT)
 
 re: fclean all
 
 dbg: CFLAGS += -g
-dbg: re
+dbg: fclean
+dbg: $(OBJ)
+	$(MAKE) -C lib/my
+	$(CC) -o $(FT) $(SRC) $(TEST_MAIN) $(CFLAGS) $(LDFLAGS)
 
 .PHONY: all build clean fclean

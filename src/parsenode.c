@@ -17,11 +17,14 @@ char *xml_getname(char **nodestr, bool *has_parameters)
 
     if ((*nodestr)[0] != '<')
         return (NULL);
+    *nodestr += 1;
     if (p) {
         *has_parameters = true;
     } else {
         *has_parameters = false;
-        p = my_strchr(*nodestr, '>');
+        p = my_strchr(*nodestr, '/');
+        if (!p)
+            p = my_strchr(*nodestr, '>');
         if (!p)
             return (NULL);
     }
@@ -70,16 +73,24 @@ dictionary *xml_getproperties(char **nodestr, bool *can_have_child)
             *nodestr += 1;
         if ((*nodestr)[0] == '/') {
             *nodestr += 1;
-            *can_have_child = true;
+            *can_have_child = false;
         }
         else
-            *can_have_child = false;
+            *can_have_child = true;
     }
     return (properties);
 }
 
 int xml_checkclosing(node *n, char **nodestr)
 {
+    if ((*nodestr)[0] == '/' && (*nodestr)[1] == '>') {
+        *nodestr += 2;
+        return (0);
+    }
+    if ((*nodestr)[0] == '>') {
+        *nodestr += 1;
+        return (0);
+    }
     if ((*nodestr)[0] != '<' || (*nodestr)[1] != '/')
         return (-1);
     if (my_strstr(*nodestr, n->name) != *nodestr + 2)

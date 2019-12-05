@@ -8,6 +8,8 @@
 
 int count_valid_queens_placements(int n);
 
+char *my_strchr(char *str, char c);
+
 int my_compute_power_it(int n, int p);
 
 int my_compute_power_rec(int n, int p);

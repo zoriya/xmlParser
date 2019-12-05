@@ -27,5 +27,6 @@ struct node
     node *next;
 };
 
+node *xmlparse(char *path);
 dictionary *property_add(dictionary *list, dictionary *property);
 node *xml_parsenode(char **nodestr);
