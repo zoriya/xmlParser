@@ -40,6 +40,7 @@ build: $(OBJ)
 	$(AR) $(NAME) $(NAME)
 
 tests_run:
+	$(MAKE) -C lib/my
 	$(CC) -o $(UT) $(SRC) $(TESTS) $(COVERAGE) $(CFLAGS) $(LDFLAGS)
 	$(UT)
 
