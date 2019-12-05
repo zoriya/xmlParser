@@ -5,17 +5,27 @@
 ** xml
 */
 
+typedef struct node node;
+typedef struct dictionary dictionary;
+
 #pragma once
 
-typedef struct dictionary
+struct dictionary
 {
-    char *property;
+    char *key;
     char *value;
-} dictionary;
 
-typedef struct node
+    dictionary *next;
+};
+
+struct node
 {
     char *name;
     dictionary *properties;
     node *child;
-} node;
+
+    node *next;
+};
+
+dictionary *property_add(dictionary *list, dictionary *property);
+node *xml_parsenode(char **nodestr);
