@@ -11,7 +11,7 @@
 #include <stdlib.h>
 #include <stdbool.h>
 
-char *xml_getname(char **nodestr, bool *has_parameters)
+char *xml_getname(char **nodestr, bool *has_parameters, bool *has_childs)
 {
     char *p = my_strchr(*nodestr, ' ');
     char *name;
@@ -24,10 +24,13 @@ char *xml_getname(char **nodestr, bool *has_parameters)
     } else {
         *has_parameters = false;
         p = my_strchr(*nodestr, '/');
-        if (!p)
+        if (!p) {
             p = my_strchr(*nodestr, '>');
-        else
+            *has_childs = true;
+        } else {
             i++;
+            *has_childs = false;
+        }
         if (p)
             *p = '\0';
         else
@@ -129,24 +132,24 @@ int xml_parsechild(node *n, char **nodestr, bool has_child)
 node *xml_parsenode(char **nodestr)
 {
     node *n = malloc(sizeof(node));
-    bool has_next_value;
+    bool has_params;
+    bool has_childs;
     char *p = my_strchr(*nodestr, '>');
 
     if (!n || !p || (*nodestr)[0] != '<' || (*nodestr)[1] == '/')
         return (NULL);
     *p = '\0';
-    n->name = xml_getname(nodestr, &has_next_value);
+    n->name = xml_getname(nodestr, &has_params, &has_childs);
     if (!n->name)
         return (NULL);
-    //IF THE NODE HAS NO PARAMTERS BUT A CHILD, THE SYSTEM TELLS THAT IT HAS NETHER. HERE CHILDS ARE USED ONLY WHEN THE NODE AS PARAMS
-    if (has_next_value) {
-        n->properties = xml_getproperties(nodestr, &has_next_value);
+    if (has_params) {
+        n->properties = xml_getproperties(nodestr, &has_childs);
         if (!n->properties)
             return (NULL);
     }
     else
         n->properties = NULL;
-    if (xml_parsechild(n, nodestr, has_next_value) < 0)
+    if (xml_parsechild(n, nodestr, has_childs) < 0)
         return (NULL);
     return (n);
 }

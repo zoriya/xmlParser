@@ -55,9 +55,8 @@ Test(xml, withchild)
     node *n = xml_parsenode(&xml);
 
     cr_assert_str_eq(n->name, "yes");
-    cr_assert_eq(n->next, NULL);
+    cr_expect_eq(n->next, NULL);
     cr_assert_eq(n->properties, NULL);
-    cr_assert_eq(n->properties->next, NULL);
     cr_assert_str_eq(n->child->name, "nop");
     cr_assert_eq(n->child->child, NULL);
     cr_assert_eq(n->child->properties, NULL);
