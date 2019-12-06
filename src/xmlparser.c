@@ -44,10 +44,8 @@ node *xml_parsestr(char *nodestr)
     if (xml_handle_prolog(&nodestr) < 0)
         return (NULL);
     for (int i = 0; nodestr[i]; i++) {
-        if (nodestr[i] == ' ') {
-            if (!is_space_usefull(nodestr, i))
-                nodestr[i] = '\t';
-        }
+        if (nodestr[i] == ' ' && !is_space_usefull(nodestr, i))
+            nodestr[i] = '\t';
     }
     for (int i = 0; nodestr[i]; i++) {
         if (nodestr[i] == '\t' || nodestr[i] == '\n' || nodestr[i] == '\r') {
