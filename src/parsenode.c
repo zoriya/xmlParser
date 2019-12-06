@@ -11,84 +11,6 @@
 #include <stdlib.h>
 #include <stdbool.h>
 
-char *xml_getname(char **nodestr, bool *has_parameters, bool *has_childs)
-{
-    char *p = my_strchr(*nodestr, ' ');
-    char *name;
-    int i = 1;
-
-    *nodestr += 1;
-    if (p) {
-        *has_parameters = true;
-        *p = '\0';
-    } else {
-        *has_parameters = false;
-        p = my_strchr(*nodestr, '/');
-        if (!p) {
-            p = my_strchr(*nodestr, '>');
-            *has_childs = true;
-        } else {
-            i++;
-            *has_childs = false;
-        }
-        if (p)
-            *p = '\0';
-        else
-            p = *nodestr + my_strlen(*nodestr);
-    }
-    name = my_strdup(*nodestr);
-    *nodestr = p + i;
-    return (name);
-}
-
-dictionary *xml_getproperty(char **nodestr)
-{
-    dictionary *property = malloc(sizeof(dictionary));
-    char *p;
-
-    if (!property)
-        return (NULL);
-    p = my_strchr(*nodestr, '=');
-    if (!p)
-        return (NULL);
-    *p = '\0';
-    property->key = my_strdup(*nodestr);
-    *nodestr = p + 1;
-    if ((*nodestr)[0] != '"')
-        return (NULL);
-    *nodestr += 1;
-    p = my_strchr(*nodestr, '"');
-    if (!p)
-        return (NULL);
-    *p = '\0';
-    property->value = my_strdup(*nodestr);
-    *nodestr = p + 1;
-    return (property);
-}
-
-dictionary *xml_getproperties(char **nodestr, bool *can_have_child)
-{
-    dictionary *properties = NULL;
-    dictionary *property = NULL;
-
-    while ((*nodestr)[0] != '\0') {
-        property = xml_getproperty(nodestr);
-        if (!property)
-            return (NULL);
-        properties = property_add(properties, property);
-        if ((*nodestr)[0] == ' ')
-            *nodestr += 1;
-        if ((*nodestr)[0] == '/') {
-            *nodestr += 1;
-            *can_have_child = false;
-        }
-        else
-            *can_have_child = true;
-    }
-    *nodestr += 1;
-    return (properties);
-}
-
 int xml_checkclosing(node *n, char **nodestr)
 {
     if (!(*nodestr)[0] && (*nodestr)[1] == '/') {
@@ -139,8 +61,8 @@ node *xml_parsenode(char **nodestr)
     if (!n || !p || (*nodestr)[0] != '<' || (*nodestr)[1] == '/')
         return (NULL);
     *p = '\0';
-    n->name = xml_getname(nodestr, &has_params, &has_childs);
-    if (!n->name)
+    *nodestr += 1;
+    if (!(n->name = xml_getname(nodestr, &has_params, &has_childs)))
         return (NULL);
     if (has_params) {
         n->properties = xml_getproperties(nodestr, &has_childs);
