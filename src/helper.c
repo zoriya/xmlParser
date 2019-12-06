@@ -31,7 +31,7 @@ char *trimstr(char *str)
     }
     trimed = malloc(sizeof(char) * (len + 1));
     len = 0;
-    for(int i = 0; str[i]; i++) {
+    for (int i = 0; str[i]; i++) {
         if (str[i] != '\t' && str[i] != '\n' && str[i] != '\r') {
             trimed[len] = str[i];
             len++;

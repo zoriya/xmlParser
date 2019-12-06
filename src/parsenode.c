@@ -51,6 +51,20 @@ int xml_parsechild(node *n, char **nodestr, bool has_child)
     return (0);
 }
 
+node *xml_parseproperties(node *n, char **str, bool has_params, bool has_childs)
+{
+    if (has_params) {
+        n->properties = xml_getproperties(str, &has_childs);
+        if (!n->properties)
+            return (NULL);
+    }
+    else
+        n->properties = NULL;
+    if (xml_parsechild(n, str, has_childs) < 0)
+        return (NULL);
+    return (n);
+}
+
 node *xml_parsenode(char **nodestr)
 {
     node *n = malloc(sizeof(node));
@@ -58,20 +72,20 @@ node *xml_parsenode(char **nodestr)
     bool has_childs;
     char *p = my_strchr(*nodestr, '>');
 
-    if (!n || !p || (*nodestr)[0] != '<' || (*nodestr)[1] == '/')
-        return (NULL);
-    *p = '\0';
-    *nodestr += 1;
-    if (!(n->name = xml_getname(nodestr, &has_params, &has_childs)))
-        return (NULL);
-    if (has_params) {
-        n->properties = xml_getproperties(nodestr, &has_childs);
-        if (!n->properties)
+    if (*nodestr[0] == '<') {
+        if (!n || !p || (*nodestr)[1] == '/')
             return (NULL);
+        *p = '\0';
+        *nodestr += 1;
+        n->name = xml_getname(nodestr, &has_params, &has_childs);
+        if (!n->name)
+            return (NULL);
+        return (xml_parseproperties(n, nodestr, has_params, has_childs));
     }
-    else
-        n->properties = NULL;
-    if (xml_parsechild(n, nodestr, has_childs) < 0)
-        return (NULL);
-    return (n);
+    else {
+        if (xml_getstringdata(n, nodestr) < 0)
+            return (NULL);
+        n->next = xml_parsenode(nodestr);
+        return (n);
+    }
 }
