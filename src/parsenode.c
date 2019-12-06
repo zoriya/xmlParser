@@ -32,6 +32,7 @@ int xml_checkclosing(node *n, char **nodestr)
 int xml_parsechild(node *n, char **nodestr, bool has_child)
 {
     char endname[my_strlen(n->name + 3)];
+    static int depth = 0;
     char *p;
 
     if (has_child) {
@@ -40,14 +41,19 @@ int xml_parsechild(node *n, char **nodestr, bool has_child)
         if (!p)
             return (-1);
         *p = '\0';
+        depth++;
         n->child = xml_parsenode(nodestr);
         if (!n->child)
             return (-1);
         if (xml_checkclosing(n, nodestr) < 0)
             return (-1);
+        depth--;
     } else
         n->child = NULL;
-    n->next = xml_parsenode(nodestr);
+    if (depth != 0)
+        n->next = xml_parsenode(nodestr);
+    else
+        n->next = NULL;
     return (0);
 }
 
@@ -72,7 +78,7 @@ node *xml_parsenode(char **nodestr)
     bool has_childs;
     char *p = my_strchr(*nodestr, '>');
 
-    if (*nodestr[0] == '<') {
+    if ((*nodestr)[0] == '<') {
         if (!n || !p || (*nodestr)[1] == '/')
             return (NULL);
         *p = '\0';
@@ -82,10 +88,11 @@ node *xml_parsenode(char **nodestr)
             return (NULL);
         return (xml_parseproperties(n, nodestr, has_params, has_childs));
     }
-    else {
+    else if ((*nodestr)[1] != '/') {
         if (xml_getstringdata(n, nodestr) < 0)
             return (NULL);
         n->next = xml_parsenode(nodestr);
         return (n);
     }
+    return (NULL);
 }

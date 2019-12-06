@@ -1,0 +1,6 @@
+<entity id="0">
+    <PositionComponent>
+        <pos>5, 5</pos>
+        <size x="500" y="500"/>
+    </PositionComponent>
+</entity>

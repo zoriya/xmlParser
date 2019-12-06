@@ -35,18 +35,20 @@ Test(xml, withparam)
 
 Test(xml, withnext)
 {
-    char *xml = strdup("<yes params=\"Test\"/><nop/>");
+    char *xml = strdup("<yes params=\"Test\"><nop/><yep/></yes>");
     node *n = xml_parsenode(&xml);
 
     cr_assert_str_eq(n->name, "yes");
-    cr_assert_eq(n->child, NULL);
+    cr_assert_str_eq(n->child->name, "nop");
+    cr_assert_eq(n->child->child, NULL);
+    cr_assert_eq(n->child->properties, NULL);
+    cr_assert_str_eq(n->child->next->name, "yep");
+    cr_assert_eq(n->child->next->child, NULL);
+    cr_assert_eq(n->child->next->properties, NULL);
+    cr_assert_eq(n->child->next->next, NULL);
     cr_assert_str_eq(n->properties->key, "params");
     cr_assert_str_eq(n->properties->value, "Test");
     cr_assert_eq(n->properties->next, NULL);
-    cr_assert_str_eq(n->next->name, "nop");
-    cr_assert_eq(n->next->child, NULL);
-    cr_assert_eq(n->next->properties, NULL);
-    cr_assert_eq(n->next->next, NULL);
 }
 
 Test(xml, withchild)

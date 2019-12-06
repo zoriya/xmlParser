@@ -21,3 +21,24 @@ Test(xml, complete)
     cr_assert_eq(n->child->properties, NULL);
     cr_assert_eq(n->child->next, NULL);
 }
+
+Test(xml, completewstring)
+{
+    node *n = xmlparse("tests/teststring.txt");
+
+    cr_assert_str_eq(n->name, "entity");
+    cr_assert_eq(n->next, NULL);
+    cr_assert_str_eq(n->properties->key, "id");
+    cr_assert_str_eq(n->properties->value, "0");
+    cr_assert_eq(n->properties->next, NULL);
+    cr_assert_str_eq(n->child->name, "PositionComponent");
+    cr_assert_eq(n->child->properties, NULL);
+    cr_assert_eq(n->child->next, NULL);
+    cr_assert_str_eq(n->child->child->name, "pos");
+    cr_assert_str_eq(n->child->child->child->properties->value, "5,5");
+    cr_assert_str_eq(n->child->child->next->name, "size");
+    cr_assert_str_eq(n->child->child->next->properties->key, "x");
+    cr_assert_str_eq(n->child->child->next->properties->value, "500");
+    cr_assert_str_eq(n->child->child->next->properties->next->key, "y");
+    cr_assert_str_eq(n->child->child->next->properties->next->value, "500");
+}

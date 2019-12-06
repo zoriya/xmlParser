@@ -14,27 +14,28 @@
 #include <sys/stat.h>
 #include <stdbool.h>
 
-bool is_space_usefull(char *nodestr, int i)
-{
-    if (i == 0 || !is_alphanum(nodestr[i - 1]))
-        return (false);
-    if (i + 1 == my_strlen(nodestr) || !is_alphanum(i + 1))
-        return (false);
-    return (true);
-}
-
 int xml_handle_prolog(char **nodestr)
 {
     char *strconst = *nodestr;
 
-    if (my_strstr(*nodestr, "<?xml") == *nodestr)
+    if (my_strstr(*nodestr, "<?xml") == *nodestr) {
         *nodestr = my_strstr(*nodestr, "?>");
-    if (!*nodestr) {
-        free(strconst);
-        return (-1);
+        if (!*nodestr) {
+            free(strconst);
+            return (-1);
+        }
+        *nodestr += 2;
     }
-    *nodestr += 2;
     return (0);
+}
+
+bool is_space_usefull(char *nodestr, int i)
+{
+    if (i == 0 || (!is_alphanum(nodestr[i - 1]) && nodestr[i - 1] != '"'))
+        return (false);
+    if (i + 1 == my_strlen(nodestr) || !is_alphanum(nodestr[i + 1]))
+        return (false);
+    return (true);
 }
 
 node *xml_parsestr(char *nodestr)
@@ -68,7 +69,7 @@ node *xmlparse(char *path)
     nodestr = malloc(stats.st_size + 1);
     if (nodestr) {
         count = read(fd, nodestr, stats.st_size);
-        nodestr[stats.st_size + 1] = '\0';
+        nodestr[stats.st_size] = '\0';
         if (count == stats.st_size)
             n = xml_parsestr(nodestr);
     }
