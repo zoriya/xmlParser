@@ -7,6 +7,7 @@
 
 #include "my.h"
 #include "xml.h"
+#include "xml_internal.h"
 #include <stdlib.h>
 #include <unistd.h>
 #include <fcntl.h>
@@ -47,13 +48,7 @@ node *xml_parsestr(char *nodestr)
         if (nodestr[i] == ' ' && !is_space_usefull(nodestr, i))
             nodestr[i] = '\t';
     }
-    for (int i = 0; nodestr[i]; i++) {
-        if (nodestr[i] == '\t' || nodestr[i] == '\n' || nodestr[i] == '\r') {
-            nodestr[i] = nodestr[i + 1];
-            nodestr[i + 1] = '\t';
-            i = 0;
-        }
-    }
+    nodestr = trimstr(nodestr);
     n = xml_parsenode(&nodestr);
     free(strconst);
     return (n);
