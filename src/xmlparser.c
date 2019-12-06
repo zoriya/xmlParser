@@ -50,7 +50,7 @@ node *xml_parsestr(char *nodestr)
         }
     }
     for (int i = 0; nodestr[i]; i++) {
-        if (nodestr[i] == '\t' || nodestr[i] == '\n') {
+        if (nodestr[i] == '\t' || nodestr[i] == '\n' || nodestr[i] == '\r') {
             nodestr[i] = nodestr[i + 1];
             nodestr[i + 1] = '\t';
             i = 0;
