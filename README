@@ -1,0 +1,4 @@
+Unsupported:
+    namespaces
+    attributes with semi quotes (') instead of quoetes (")
+    comments
