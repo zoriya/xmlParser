@@ -91,7 +91,7 @@ node *xml_parsenode(char **nodestr)
         if (n->name)
             return (xml_parseproperties(n, nodestr, has_params, has_childs));
     }
-    else if ((*nodestr)[1] != '/'  && xml_getstringdata(n, nodestr) == 0) {
+    else if ((*nodestr)[1] != '/' && xml_getstringdata(n, nodestr) == 0) {
         n->next = xml_parsenode(nodestr);
         return (n);
     }
