@@ -13,7 +13,8 @@ SRC = src/xmlparser.c \
 
 OBJ = $(SRC:%.c=%.o)
 
-TESTS = tests/test_basics.c
+TESTS = tests/test_basics.c \
+	tests/tests_realxml.c
 
 TEST_MAIN = tests/test_main.c
 

@@ -32,6 +32,7 @@ int xml_handle_prolog(char **nodestr)
         free(strconst);
         return (-1);
     }
+    *nodestr += 2;
     return (0);
 }
 
@@ -71,9 +72,10 @@ node *xmlparse(char *path)
     if (fd < 0)
         return (NULL);
     fstat(fd, &stats);
-    nodestr = malloc(stats.st_size);
+    nodestr = malloc(stats.st_size + 1);
     if (nodestr) {
         count = read(fd, nodestr, stats.st_size);
+        nodestr[stats.st_size + 1] = '\0';
         if (count == stats.st_size)
             n = xml_parsestr(nodestr);
     }
