@@ -50,6 +50,8 @@ node *xml_parsestr(char *nodestr)
             nodestr[i] = '\t';
     }
     nodestr = trimstr(nodestr);
+    free(strconst);
+    strconst = nodestr;
     n = xml_parsenode(&nodestr);
     free(strconst);
     return (n);

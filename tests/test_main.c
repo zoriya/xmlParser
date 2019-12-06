@@ -7,12 +7,13 @@
 
 #include "xml.h"
 #include <stdio.h>
+#include <stdlib.h>
 
 int main(int argc, char **argv)
 {
     if (argc != 2)
         return (printf("Usage: %s xml_path\n", argv[0]), 0);
     node *n = xmlparse(argv[1]);
-    (void)n;
+    xml_destroy(n);
     return (0);
 }

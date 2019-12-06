@@ -78,21 +78,23 @@ node *xml_parsenode(char **nodestr)
     bool has_childs;
     char *p = my_strchr(*nodestr, '>');
 
+    if (!n)
+        return (NULL);
     if ((*nodestr)[0] == '<') {
-        if (!n || !p || (*nodestr)[1] == '/')
+        if (!p || (*nodestr)[1] == '/') {
+            free(n);
             return (NULL);
+        }
         *p = '\0';
         *nodestr += 1;
         n->name = xml_getname(nodestr, &has_params, &has_childs);
-        if (!n->name)
-            return (NULL);
-        return (xml_parseproperties(n, nodestr, has_params, has_childs));
+        if (n->name)
+            return (xml_parseproperties(n, nodestr, has_params, has_childs));
     }
-    else if ((*nodestr)[1] != '/') {
-        if (xml_getstringdata(n, nodestr) < 0)
-            return (NULL);
+    else if ((*nodestr)[1] != '/'  && xml_getstringdata(n, nodestr) == 0) {
         n->next = xml_parsenode(nodestr);
         return (n);
     }
+    free(n);
     return (NULL);
 }

@@ -12,13 +12,13 @@ dictionary *property_add(dictionary *list, dictionary *property)
 {
     dictionary *listconst = list;
 
+    property->next = NULL;
     if (!list)
         return (property);
     else {
         while (list->next)
             list = list->next;
         list->next = property;
-        property->next = NULL;
     }
     return (listconst);
 }

@@ -37,5 +37,6 @@ char *trimstr(char *str)
             len++;
         }
     }
+    trimed[len] = '\0';
     return (trimed);
 }
