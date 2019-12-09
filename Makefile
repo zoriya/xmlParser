@@ -11,7 +11,8 @@ SRC = src/xmlparser.c \
 	src/helper.c \
 	src/xmlproperties.c \
 	src/rawnode.c \
-	src/xml_destroy.c
+	src/xml_destroy.c \
+	src/xmlget.c
 
 OBJ = $(SRC:%.c=%.o)
 

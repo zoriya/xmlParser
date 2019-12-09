@@ -6,6 +6,7 @@
 */
 
 #include "xml.h"
+#include "xml_internal.h"
 #include <criterion/criterion.h>
 #include <string.h>
 

@@ -15,3 +15,5 @@ dictionary *xml_getproperties(char **nodestr, bool *can_have_child);
 char *trimstr(char *str);
 int xml_getstringdata(node *n, char **nodestr);
 int xml_checkclosing(node *n, char **nodestr);
+dictionary *property_add(dictionary *list, dictionary *property);
+node *xml_parsenode(char **nodestr);
