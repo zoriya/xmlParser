@@ -1,16 +1,16 @@
-## XmlParser
+# XmlParser
 
 An xml parser in C.
     
-# Usage
+## Usage
 Use ``xml_parse(path)`` to parse the whole xml.
 
 Use ``xml_getproperty(key)`` to get an attribute of the xml.
 
-# System calls
+## System calls
 Open, Close, Read, Stat
 
-# Unsuported yet
+## Unsuported yet
 Attributes with semi quotes (') instead of quotes (")
 
 Comments
