@@ -27,6 +27,9 @@ struct node
     node *next;
 };
 
-node *xmlparse(char *path);
-char *xml_getproperty(node *n, char *key);
+node *xml_parse(const char *path);
+node *xml_getnode(node *parent, const char *name);
+char *xml_getproperty(node *n, const char *key);
+int xml_getintprop(node *n, const char *key);
+float xml_getfloatprop(node *n, const char *key);
 void xml_destroy(node *n);

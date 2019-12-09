@@ -57,7 +57,7 @@ node *xml_parsestr(char *nodestr)
     return (n);
 }
 
-node *xmlparse(char *path)
+node *xml_parse(const char *path)
 {
     node *n = NULL;
     int fd = open(path, O_RDONLY);

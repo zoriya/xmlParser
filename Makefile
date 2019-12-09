@@ -33,7 +33,7 @@ CC = gcc
 
 AR = ar rc
 
-NAME = xmlparser.a
+NAME = libxmlparser.a
 
 UT = ./ut
 
@@ -42,21 +42,17 @@ FT = ./ft
 all: build
 
 build: $(OBJ)
-	$(MAKE) -C lib/my
-	$(AR) $(NAME) $(NAME)
+	$(AR) $(NAME) $(OBJ)
 
 tests_run:
-	$(MAKE) -C lib/my
 	$(CC) -o $(UT) $(SRC) $(TESTS) $(COVERAGE) $(CFLAGS) $(LDFLAGS)
 	$(UT)
 
 clean:
-	$(MAKE) -C lib/my clean
 	$(RM) $(OBJ)
 	$(RM) *.gc*
 
 fclean: clean
-	$(MAKE) -C lib/my fclean
 	$(RM) $(NAME)
 	$(RM) $(UT)
 	$(RM) $(FT)
@@ -66,7 +62,6 @@ re: fclean all
 dbg: CFLAGS += -g
 dbg: fclean
 dbg: $(OBJ)
-	$(MAKE) -C lib/my
 	$(CC) -o $(FT) $(SRC) $(TEST_MAIN) $(CFLAGS) $(LDFLAGS)
 
 .PHONY: all build clean fclean
