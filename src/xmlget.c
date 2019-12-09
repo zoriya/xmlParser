@@ -40,6 +40,8 @@ node *xml_getnode(node *parent, const char *name)
 {
     node *tmp;
 
+    if (!my_strcmp(parent->name, name))
+        return (parent);
     for (node *n = parent->child; n; n = n->next) {
         if (!my_strcmp(n->name, name))
             return (n);
