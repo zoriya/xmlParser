@@ -17,3 +17,4 @@ int xml_getstringdata(node *n, char **nodestr);
 int xml_checkclosing(node *n, char **nodestr);
 dictionary *property_add(dictionary *list, dictionary *property);
 node *xml_parsenode(char **nodestr);
+int get_int_size(int n);

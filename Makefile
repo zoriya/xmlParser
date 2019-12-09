@@ -12,7 +12,8 @@ SRC = src/xmlparser.c \
 	src/xmlproperties.c \
 	src/rawnode.c \
 	src/xml_destroy.c \
-	src/xmlget.c
+	src/xmlget.c \
+	src/floatutils.c
 
 OBJ = $(SRC:%.c=%.o)
 
@@ -60,8 +61,11 @@ fclean: clean
 re: fclean all
 
 dbg: CFLAGS += -g
-dbg: fclean
-dbg: $(OBJ)
+dbg: re
+
+main-dbg: CFLAGS += -g
+main-dbg: fclean
+main-dbg: $(OBJ)
 	$(CC) -o $(FT) $(SRC) $(TEST_MAIN) $(CFLAGS) $(LDFLAGS)
 
 .PHONY: all build clean fclean

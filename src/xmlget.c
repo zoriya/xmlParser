@@ -6,6 +6,7 @@
 */
 
 #include "xml.h"
+#include "xml_internal.h"
 #include "my.h"
 #include <stddef.h>
 
@@ -30,9 +31,21 @@ int xml_getintprop(node *n, const char *key)
 float xml_getfloatprop(node *n, const char *key)
 {
     char *prop = xml_getproperty(n, key);
+    float nbr;
+    int deci;
 
     if (!prop)
         return (0);
+    for (int i = 0; prop[i]; i++) {
+        if (!is_num(prop[i]))
+            return (-1);
+    }
+    nbr = (float)my_getnbr(prop);
+    prop += get_int_size(nbr);
+    if (*prop) {
+        deci = my_getnbr(prop + 1);
+        nbr += deci / (float)(get_int_size(deci) + 1);
+    }
     return (0);
 }
 
