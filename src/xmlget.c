@@ -37,16 +37,16 @@ float xml_getfloatprop(node *n, const char *key)
     if (!prop)
         return (0);
     for (int i = 0; prop[i]; i++) {
-        if (!is_num(prop[i]))
+        if (!is_num(prop[i]) && prop[i] != '.')
             return (-1);
     }
     nbr = (float)my_getnbr(prop);
     prop += get_int_size(nbr);
     if (*prop) {
         deci = my_getnbr(prop + 1);
-        nbr += deci / (float)(get_int_size(deci) + 1);
+        nbr += deci / (float)(get_int_size(deci) * 10);
     }
-    return (0);
+    return (nbr);
 }
 
 node *xml_getnode(node *parent, const char *name)
