@@ -28,7 +28,7 @@ INCLUDE = -I ./include
 
 CFLAGS = $(INCLUDE) -Wall -Wextra -Wshadow
 
-LDFLAGS = -lmy -L lib/my/
+LDFLAGS = -lmy -L ../my
 
 CC = gcc
 

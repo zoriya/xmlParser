@@ -21,4 +21,6 @@ Attributes with semi quotes (') instead of quotes (")
 
 Comments
 
-The error handling is not fiable yet.
+String containing multiples following spaces.
+
+String containing \n, \r or \t (theses specials chars are removed)

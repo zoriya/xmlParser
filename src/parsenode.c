@@ -51,8 +51,6 @@ int xml_parsechild(node *n, char **nodestr, bool has_child)
         *p = '\0';
         depth++;
         n->child = xml_parsenode(nodestr);
-        if (!n->child)
-            return (-1);
         if (xml_checkclosing(n, nodestr) < 0)
             return (-1);
         depth--;

@@ -11,7 +11,7 @@
 
 Test(xml, complete)
 {
-    node *n = xmlparse("tests/testprolog.txt");
+    node *n = xml_parse("tests/testprolog.txt");
 
     cr_assert_str_eq(n->name, "yes");
     cr_assert_eq(n->next, NULL);
@@ -19,12 +19,15 @@ Test(xml, complete)
     cr_assert_str_eq(n->child->name, "nop");
     cr_assert_eq(n->child->child, NULL);
     cr_assert_eq(n->child->properties, NULL);
-    cr_assert_eq(n->child->next, NULL);
+    cr_assert_str_eq(n->child->next->name, "Test");
+    cr_assert_eq(n->child->next->properties, NULL);
+    cr_assert_eq(n->child->next->child, NULL);
+    cr_assert_eq(n->child->next->next, NULL);
 }
 
 Test(xml, completewstring)
 {
-    node *n = xmlparse("tests/teststring.txt");
+    node *n = xml_parse("tests/teststring.txt");
 
     cr_assert_str_eq(n->name, "entity");
     cr_assert_eq(n->next, NULL);
