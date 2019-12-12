@@ -1,3 +1,3 @@
 *.o
 *.gc*
-xmlparser.a
+libxmlparser.a
