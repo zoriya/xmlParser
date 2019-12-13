@@ -23,7 +23,7 @@ int xml_getintprop(node *n, const char *key)
 {
     char *prop = xml_getproperty(n, key);
 
-    if (!prop)
+    if (!prop || my_strlen(prop) == 0)
         return (0);
     return (my_getnbr(prop));
 }
