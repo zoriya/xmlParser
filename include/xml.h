@@ -32,4 +32,5 @@ node *xml_getnode(node *parent, const char *name);
 char *xml_getproperty(node *n, const char *key);
 int xml_getintprop(node *n, const char *key);
 float xml_getfloatprop(node *n, const char *key);
+int xml_getchildcount(node *n);
 void xml_destroy(node *n);
