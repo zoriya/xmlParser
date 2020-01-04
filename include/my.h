@@ -6,6 +6,8 @@
 */
 #pragma once
 
+int my_str_islower_or_num(const char *str);
+
 int count_valid_queens_placements(int n);
 
 char *my_strchr(char *str, char c);

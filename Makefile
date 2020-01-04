@@ -13,6 +13,7 @@ SRC = src/xmlparser.c \
 	src/rawnode.c \
 	src/xml_destroy.c \
 	src/xmlget.c \
+	src/strangeget.c \
 	src/floatutils.c \
 	src/child.c
 
