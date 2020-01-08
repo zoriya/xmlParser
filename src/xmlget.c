@@ -8,6 +8,7 @@
 #include "xml.h"
 #include "xml_internal.h"
 #include "my.h"
+#include "math.h"
 #include <stddef.h>
 
 char *xml_getproperty(node *n, const char *key)
@@ -44,7 +45,7 @@ float xml_getfloatprop(node *n, const char *key)
     prop += get_int_size(nbr);
     if (*prop) {
         deci = my_getnbr(prop + 1);
-        nbr += deci / (float)(get_int_size(deci) * 10);
+        nbr += deci / pow(10, (float)get_int_size(deci));
     }
     return (nbr);
 }
