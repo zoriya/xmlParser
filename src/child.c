@@ -10,7 +10,7 @@
 
 int xml_getchildcount_filtered(node *n, char *name)
 {
-    int i = 1;
+    int i = 0;
 
     if (!n || !n->child)
         return (0);
