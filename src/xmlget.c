@@ -15,7 +15,7 @@ char *xml_getproperty(node *n, const char *key)
 {
     for (dictionary *prop = n->properties; prop; prop = prop->next) {
         if (!my_strcmp(key, prop->key))
-            return (prop->value);
+            return (my_strdup(prop->value));
     }
     return (NULL);
 }

@@ -35,4 +35,5 @@ int xml_getbinaprop(node *n, const char *key);
 int xml_gethexaprop(node *n, const char *key);
 float xml_getfloatprop(node *n, const char *key);
 int xml_getchildcount(node *n);
+int xml_getchildcount_filtered(node *n, char *name);
 void xml_destroy(node *n);
