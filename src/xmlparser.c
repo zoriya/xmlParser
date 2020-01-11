@@ -29,11 +29,24 @@ int xml_handle_prolog(char **nodestr)
     return (0);
 }
 
+bool is_charvalid(char c)
+{
+    if (c == ' ' || c == '\t' || c == '\n' || c == '\r')
+        return (false);
+    if (c == '"' || c == '\'')
+        return (false);
+    if (c == '=')
+        return (false);
+    if (c == '>' || c == '<' || c == '/')
+        return (false);
+    return (true);
+}
+
 bool is_space_usefull(char *nodestr, int i)
 {
-    if (i == 0 || (!is_alphanum(nodestr[i - 1]) && nodestr[i - 1] != '"'))
+    if (i == 0 || (!is_charvalid(nodestr[i - 1]) && nodestr[i - 1] != '"'))
         return (false);
-    if (i + 1 == my_strlen(nodestr) || !is_alphanum(nodestr[i + 1]))
+    if (i + 1 == my_strlen(nodestr) || !is_charvalid(nodestr[i + 1]))
         return (false);
     return (true);
 }

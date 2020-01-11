@@ -6,11 +6,13 @@
 */
 
 #include "xml.h"
+#include "xml_internal.h"
 #include "my.h"
+#include <stddef.h>
 
 int xml_gethexaprop(node *n, const char *key)
 {
-    char *prop = xml_getproperty(n, key);
+    char *prop = xml_gettempprop(n, key);
 
     if (!prop || my_strlen(prop) == 0)
         return (0);
@@ -24,11 +26,16 @@ int xml_gethexaprop(node *n, const char *key)
 
 int xml_getbinaprop(node *n, const char *key)
 {
-    char *prop = xml_getproperty(n, key);
+    char *prop = xml_gettempprop(n, key);
 
     if (!prop || my_strlen(prop) == 0)
         return (0);
     if (prop[0] == '0' && prop[1] == 'b')
         prop += 2;
     return (my_getnbr_base(prop, "01"));
+}
+
+bool xml_hasproperty(node *n, const char *key)
+{
+    return (xml_gettempprop(n, key) != NULL);
 }

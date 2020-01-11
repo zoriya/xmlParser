@@ -11,18 +11,29 @@
 #include "math.h"
 #include <stddef.h>
 
-char *xml_getproperty(node *n, const char *key)
+char *xml_gettempprop(node *n, const char *key)
 {
+    if (!n)
+        return (NULL);
     for (dictionary *prop = n->properties; prop; prop = prop->next) {
         if (!my_strcmp(key, prop->key))
-            return (my_strdup(prop->value));
+            return (prop->value);
     }
+    return (NULL);
+}
+
+char *xml_getproperty(node *n, const char *key)
+{
+    char *prop = xml_gettempprop(n, key);
+
+    if (prop)
+        return (my_strdup(prop));
     return (NULL);
 }
 
 int xml_getintprop(node *n, const char *key)
 {
-    char *prop = xml_getproperty(n, key);
+    char *prop = xml_gettempprop(n, key);
 
     if (!prop || my_strlen(prop) == 0)
         return (0);
@@ -31,7 +42,7 @@ int xml_getintprop(node *n, const char *key)
 
 float xml_getfloatprop(node *n, const char *key)
 {
-    char *prop = xml_getproperty(n, key);
+    char *prop = xml_gettempprop(n, key);
     float nbr;
     int deci;
 
