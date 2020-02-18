@@ -15,6 +15,8 @@ int xml_getstringdata(node *n, char **nodestr)
 {
     dictionary *prop = malloc(sizeof(dictionary));
 
+    if (!prop)
+        return (-1);
     prop->key = my_strdup("data");
     prop->value = my_strdup(*nodestr);
     prop->next = NULL;

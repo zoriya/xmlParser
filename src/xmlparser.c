@@ -80,7 +80,8 @@ node *xml_parse(const char *path)
 
     if (fd < 0)
         return (NULL);
-    fstat(fd, &stats);
+    if (fstat(fd, &stats) < 0 || stats.st_size <= 0)
+        return (NULL);
     nodestr = malloc(stats.st_size + 1);
     if (nodestr) {
         count = read(fd, nodestr, stats.st_size);
