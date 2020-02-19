@@ -42,9 +42,9 @@ UT = ./ut
 
 FT = ./ft
 
-all: build
+all: $(NAME)
 
-build: $(OBJ)
+$(NAME): $(OBJ)
 	$(AR) $(NAME) $(OBJ)
 
 tests_run:
