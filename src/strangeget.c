@@ -46,3 +46,18 @@ bool xml_propcontains(node *n, const char *key, const char *tofind)
 
 	return tmp && my_strstr(tmp, tofind);
 }
+
+bool xml_getbool(node *n, const char *key, bool default_value)
+{
+	char *tmp = xml_gettempprop(n, key);
+
+	if (tmp && !my_strcmp(tmp, "true"))
+		return (true);
+	if (tmp && !my_strcmp(tmp, "True"))
+		return (true);
+	if (tmp && !my_strcmp(tmp, "false"))
+		return (false);
+	if (tmp && !my_strcmp(tmp, "False"))
+		return (false);
+	return (default_value);
+}
