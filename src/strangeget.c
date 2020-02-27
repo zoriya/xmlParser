@@ -39,3 +39,10 @@ bool xml_hasproperty(node *n, const char *key)
 {
     return (xml_gettempprop(n, key) != NULL);
 }
+
+bool xml_propcontains(node *n, const char *key, const char *tofind)
+{
+	char *tmp = xml_gettempprop(n, key);
+
+	return tmp && my_strstr(tmp, tofind);
+}
