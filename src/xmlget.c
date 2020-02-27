@@ -9,6 +9,7 @@
 #include "xml_internal.h"
 #include "my.h"
 #include "math.h"
+#include "my.h"
 #include <stddef.h>
 
 char *xml_gettempprop(node *n, const char *key)
@@ -26,8 +27,10 @@ char *xml_getproperty(node *n, const char *key)
 {
     char *prop = xml_gettempprop(n, key);
 
-    if (prop)
-        return (my_strdup(prop));
+    if (prop) {
+		my_str_replace(prop, "\\n", '\n');
+		return (my_strdup(prop));
+	}
     return (NULL);
 }
 
