@@ -42,4 +42,5 @@ float xml_getfloatprop(node *n, const char *key);
 int xml_getchildcount(node *n);
 int xml_getchildcount_filtered(node *n, char *name);
 bool xml_getbool(node *n, const char *key, bool default_value);
+char *xml_gettmpstring(node *n, const char *key, char *def);
 void xml_destroy(node *n);
