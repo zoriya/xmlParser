@@ -78,7 +78,7 @@ char *my_strcat(char *dest, const char *src);
 
 int my_strcmp(const char *s1, const char *s2);
 
-char *my_strcpy(const char *str);
+char *my_strcpy(char *dest, const char *str);
 
 int my_str_isalpha(const char *str);
 
