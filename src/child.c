@@ -15,10 +15,10 @@ int xml_getchildcount_filtered(node *n, char *name)
     if (!n || !n->child)
         return (0);
     n = n->child;
-    while (n->next) {
-        n = n->next;
+    while (n) {
         if (!my_strcmp(n->name, name))
             i++;
+        n = n->next;
     }
     return (i);
 }
@@ -30,9 +30,9 @@ int xml_getchildcount(node *n)
     if (!n || !n->child)
         return (0);
     n = n->child;
-    while (n->next) {
-        n = n->next;
+    while (n) {
         i++;
+        n = n->next;
     }
     return (i);
 }
