@@ -6,6 +6,8 @@
 */
 #pragma once
 
+char *my_str_replace(char *str, const char *to_replace, char c);
+
 int my_str_islower_or_num(const char *str);
 
 int count_valid_queens_placements(int n);

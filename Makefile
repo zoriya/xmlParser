@@ -30,7 +30,7 @@ INCLUDE = -I ./include
 
 CFLAGS = $(INCLUDE) -Wall -Wextra -Wshadow
 
-LDFLAGS = -lmy -L ../my
+LDFLAGS = -lmy -L ../my -lm
 
 CC = gcc
 

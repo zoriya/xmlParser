@@ -38,7 +38,7 @@ Test(xml, completewstring)
     cr_assert_eq(n->child->properties, NULL);
     cr_assert_eq(n->child->next, NULL);
     cr_assert_str_eq(n->child->child->name, "pos");
-    cr_assert_str_eq(n->child->child->child->properties->value, "5,5");
+    cr_assert_str_eq(n->child->child->child->properties->value, "5, 5");
     cr_assert_str_eq(n->child->child->next->name, "size");
     cr_assert_str_eq(n->child->child->next->properties->key, "x");
     cr_assert_str_eq(n->child->child->next->properties->value, "500");
