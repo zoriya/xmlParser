@@ -15,7 +15,9 @@ SRC = src/xmlparser.c \
 	src/xmlget.c \
 	src/strangeget.c \
 	src/floatutils.c \
-	src/child.c
+	src/child.c \
+	src/strangeget.c \
+	src/otherget.c
 
 OBJ = $(SRC:%.c=%.o)
 
