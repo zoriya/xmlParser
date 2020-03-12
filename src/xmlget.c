@@ -28,9 +28,9 @@ char *xml_getproperty(node *n, const char *key)
     char *prop = xml_gettempprop(n, key);
 
     if (prop) {
-		my_str_replace(prop, "\\n", '\n');
-		return (my_strdup(prop));
-	}
+        my_str_replace(prop, "\\n", '\n');
+        return (my_strdup(prop));
+    }
     return (NULL);
 }
 
