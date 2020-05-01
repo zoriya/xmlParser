@@ -74,25 +74,25 @@ node *xml_parseproperties(node *n, char **str, bool has_params, bool has_childs)
     return (n);
 }
 
-node *xml_parsenode(char **nodestr)
+node *xml_parsenode(char **str)
 {
     node *n = malloc(sizeof(node));
     bool has_param;
     bool has_childs;
-    char *p = my_strchr(*nodestr, '>');
+    char *p = my_strchr(*str, '>');
 
     if (!n)
         return (NULL);
-    if ((*nodestr)[0] == '<') {
-        if (p && (*nodestr)[1] != '/') {
+    if ((*str)[0] == '<') {
+        if (p && (*str)[1] != '/') {
             *p = '\0';
-            *nodestr += 1;
-            n->name = xml_getname(nodestr, &has_param, &has_childs);
+            *str += 1;
+            n->name = xml_getname(str, &has_param, &has_childs);
             if (n->name)
-                return (xml_parseproperties(n, nodestr, has_param, has_childs));
+                return (xml_parseproperties(n, str, has_param, has_childs));
         }
-    } else if ((*nodestr)[1] != '/' && xml_getstringdata(n, nodestr) == 0) {
-        n->next = xml_parsenode(nodestr);
+    } else if (**str && (*str)[1] != '/' && !xml_getstringdata(n, str)) {
+        n->next = xml_parsenode(str);
         return (n);
     }
     free(n);

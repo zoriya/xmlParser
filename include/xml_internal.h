@@ -16,5 +16,5 @@ char *trimstr(char *str);
 int xml_getstringdata(node *n, char **nodestr);
 int xml_checkclosing(node *n, char **nodestr);
 dictionary *property_add(dictionary *list, dictionary *property);
-node *xml_parsenode(char **nodestr);
+node *xml_parsenode(char **str);
 int get_int_size(int n);
