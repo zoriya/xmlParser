@@ -10,6 +10,8 @@ Use ``xml_parse(path)`` to parse the whole xml.
 
 Use ``xml_getnode(xml, node_name)`` to get the first node with the name you inputed.
 
+
+### Data usage
 Here is the full list of helper function that will allow you to simply use the data:
 
 
@@ -45,7 +47,7 @@ Here is the full list of helper function that will allow you to simply use the d
 
 ```bool xml_getbool(node *n, const char *key, bool default_value);``` Interpret the property as a boolean. If the value is not found, ``default_value`` is returned.
 
-
+### Free
 
 
 And do not forget to free the parsed xml when you do not need it anymore with the function: ``void xml_destroy(node *n);``
